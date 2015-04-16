@@ -1,0 +1,27 @@
+<form class="" action="index.html" method="post">
+  <%= csrf_html %>
+  <input type="hidden" name="_method" value="put">
+  <table>
+    <% entity.class.columns.each do |column| %>
+      <% key, value = column.name, entity.send(column.name) %>
+      <% extra_attributes = %w{id created_at updated_at} %>
+      <% next if extra_attributes.include?(key) %>
+
+      <tr>
+        <td>
+          <label for="<%= "#{entity.class.to_s.downcase}_#{key}"%>">
+            <%= entity.key_name(key).titleize %>
+          </label>
+        </td>
+        <td>
+          <%= render "shared/#{entity.type_for(column)}",
+          entity: entity,
+          key: key,
+          value: value %>
+        </td>
+      </tr>
+
+    <% end %>
+  </table>
+
+</form>

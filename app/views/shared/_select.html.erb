@@ -1,0 +1,9 @@
+<select name="<%= "#{entity.class.to_s.downcase}[#{key}]" %>" >
+  <option>
+  <% entity.key_name(key).camelize.constantize.all.each do |item| %>
+    <option value="<%= item.id %>"
+    <%= item.id == value ? "selected" : "" %> >
+      <%= item.name %>
+    </option>
+  <% end %>
+</select>

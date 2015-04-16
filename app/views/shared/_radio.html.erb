@@ -1,0 +1,7 @@
+<% entity.class.const_get(key.pluralize.upcase).each do |item| %>
+  <input type="radio"
+  name="<%= "#{entity.class.to_s.downcase}[#{key}]" %>"
+  value="<%= item %>"
+  <%= item == value ? "checked" : "" %> >
+  <label for=""><%= item %></label>
+<% end %>

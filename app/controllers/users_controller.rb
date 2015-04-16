@@ -6,11 +6,12 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-    if @user.save!
-      login!(user)
-      redirect_to root_url
+    if password_confirmed? && @user.save!
+      login!(@user)
+      redirect_to @user
     else
-      flash[:error] = "Incorrect email/password"
+      flash[:error] = "Mistakes have been made"
+      redirect_to new_user_url
     end
   end
 
@@ -21,6 +22,10 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :pasword)
+    params.require(:user).permit(:email, :password)
+  end
+
+  def password_confirmed?
+    params[:user][:password] == params[:user][:password_confirmation]
   end
 end

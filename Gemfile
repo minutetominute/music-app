@@ -36,6 +36,11 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+group :development do
+  gem 'binding_of_caller'
+  gem 'better_errors'
+end
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
